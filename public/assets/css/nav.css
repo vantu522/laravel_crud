@@ -1,0 +1,119 @@
+/* Responsive Layout Fix */
+body {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.flex {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar and Main Content Container */
+aside {
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    width: 256px; /* Fixed width for sidebar */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Allow scrolling if content is long */
+}
+
+.main-content {
+    margin-left: 256px; /* Match sidebar width */
+    width: calc(100% - 256px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+nav {
+    width: calc(100% - 256px);
+    margin-left: 256px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Main Content Area */
+main {
+    margin-top: 80px; /* Space for fixed navbar */
+    margin-left: 256px;
+    width: calc(100% - 256px);
+    padding: 24px;
+    background-color: #f9fafb;
+}
+
+/* Responsive Breakpoints */
+@media screen and (max-width: 1024px) {
+    aside {
+        width: 220px; /* Slightly narrower sidebar */
+    }
+
+    .main-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+    }
+
+    nav {
+        width: calc(100% - 220px);
+        margin-left: 220px;
+    }
+
+    main {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    aside {
+        position: fixed;
+        top: 0;
+        left: -256px; /* Hide off-screen */
+        transition: left 0.3s ease;
+        height: 100vh;
+        z-index: 1100;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    nav {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    main {
+        margin-left: 0;
+        width: 100%;
+        padding: 16px;
+    }
+
+    /* Mobile Sidebar Toggle */
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .sidebar-open aside {
+        left: 0;
+    }
+}
+
+/* Mobile and Small Screen Adjustments */
+@media screen and (max-width: 480px) {
+    main {
+        padding: 12px;
+    }
+}
