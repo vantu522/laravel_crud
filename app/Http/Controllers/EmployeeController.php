@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Exports\EmployeeExport;
 use App\Mail\UserCreatedMail;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -17,7 +19,7 @@ class EmployeeController extends Controller
     public function index()
     {
         //
-        $employees = Employee::all();
+        $employees = Employee::orderBy('created_at','desc')->get(); // ""all()
         return view('employees.index', compact('employees'));
     }
 
@@ -74,7 +76,7 @@ class EmployeeController extends Controller
 public function update(EmployeeRequest $request, $id)
 {
     try {
-        // Log incoming request data for debugging
+       
         Log::info('Update request received for employee ID: ' . $id);
         Log::info('Validated data:', $request->validated());
         
@@ -114,5 +116,22 @@ public function update(EmployeeRequest $request, $id)
         return redirect()->route('employee.index');
 
 
-        }
+    }
+
+
+    public function export()
+    {
+        return Excel::download(new EmployeeExport,'employees.xlsx');
+    }
+
+
+    public function search(Request $request){
+        $query = $request->input('query');
+       
+        $employee = Employee::where('name','like',"%{$query}%")
+                ->orWhere('phone_number','like',"%{$query}%")
+                ->get();
+
+        return view('employees.index',compact('employee'));
+    }
 }

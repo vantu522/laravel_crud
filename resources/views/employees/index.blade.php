@@ -11,14 +11,16 @@
         <h1 class="text-center">Danh sách nhân viên</h1>
    
         <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
-            {{-- <form class="d-flex" action="{{route('employees.search')}}" method="GET" >
+            <form class="d-flex" action="{{route('employee.search')}}" method="GET" >
                 @csrf 
-                <input class="form-control me-2 " style="width:500px" type="text" name="query" placeholder="Nhập từ khóa..." aria-label="Search" >
+                <input class="form-control me-2 " style="width:500px" type="text" name="query" placeholder="Tìm kiếm theo tên..." aria-label="Search" >
                 <button class="btn btn-primary" type="submit">Tìm kiếm</button>
-            </form> --}}
+            </form>
             <a href="{{ route('employee.create') }}" class="btn btn-success">Thêm mới</a>
+            <a href="{{ route('employee.export') }}" class="btn btn-primary">Xuất Excel</a>
+
         </div> 
-    
+
         <table class="table table-hover table-striped text-center align-middle">
             <thead class="table-dark">
                 <tr>
@@ -48,10 +50,13 @@
                         </div>
                     </td>
                 </tr>
+
                 @endforeach
             </tbody>
         </table>
-    </div>
+        
+      
+        </div>
     
 
     <!-- Modal Xác Nhận Xóa -->

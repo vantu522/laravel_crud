@@ -3,28 +3,26 @@
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ImageUploadController;
-use App\Models\Employee;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-// nếu không thông qua controller thì trả về view 
 Route::get('/hi', function () {
     return view('layouts.master');
 });
 
-// Route::get('/table', function () {
-//     return view('table.index');
-// })\;
-// route::get('/dashboard', [PostController::class, 'index']);
-Route::resource('/posts', PostController::class);
-Route::post('/posts/create', [PostController::class, 'store']);
+Route::prefix('admin')->group(function(){
+    Route::resource('/posts', PostController::class);
+    Route::post('/posts/create', [PostController::class, 'store']);
 
-Route::get('/posts/search/okok', [PostController::class, 'search'])->name('posts.search');
-Route::resource('/employee', EmployeeController::class);
-Route::post('/employees/create', [EmployeeController::class, 'store']);
+    Route::get('/posts/search/okok', [PostController::class, 'search'])->name('posts.search');
+    Route::resource('/employee', EmployeeController::class);
+    Route::post('/employees/create', [EmployeeController::class, 'store']);
+    Route::get('/employees/search/okok', [PostController::class, 'search'])->name('employee.search');
+    Route::get('/employees/export', [EmployeeController::class, 'export'])->name('employee.export');
 
+
+});
 

@@ -26,7 +26,7 @@ class EmployeeRequest extends FormRequest
         return [
             'name' =>'required|max:255',
             'email' => 'required|email|unique:employees,email,' . $employeeId,
-            'phone_number' => 'required',
+            'phone_number' => 'required|max:10',
             'address' => 'required'
         ];
     }
