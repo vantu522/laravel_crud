@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/nav.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
 
 </head>
@@ -73,6 +74,9 @@
     <!-- External CDN Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 
     @stack('scripts')
 
@@ -97,6 +101,21 @@
                 };
                 reader.readAsDataURL(file);
             }
+        });
+    </script>
+       <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300, // Chiều cao của editor
+                placeholder: 'Nhập nội dung...',
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
         });
     </script>
    

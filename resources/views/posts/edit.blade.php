@@ -14,7 +14,7 @@
 
         <div class="mb-3">
             <label>Nội dung</label>
-            <textarea type="text" name="content"  class="form-control" required>{{ $post->content }}</textarea>
+            <textarea type="text" id="summernote" name="content"  class="form-control" required>{{ $post->content }}</textarea>
         </div>
 
         <div class="mb-3">

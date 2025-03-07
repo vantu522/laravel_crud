@@ -39,14 +39,19 @@
             >
               <i class="fas fa-home"></i>
               
-              <p>Bài viết</p>
+              <p>Quản lý</p>
               <span class="caret"></span>
             </a>
             <div class="collapse" id="dashboard">
               <ul class="nav nav-collapse">
                 <li>
-                  <a href="../demo1/index.html">
-                    <span class="sub-item">Dashboard 1</span>
+                  <a href="{{route('employee.index')}}">
+                    <span class="sub-item">Nhân viên</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{route('posts.index')}}">
+                    <span class="sub-item">Bài viết</span>
                   </a>
                 </li>
               </ul>

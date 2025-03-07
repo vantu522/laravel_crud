@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -33,16 +34,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         //
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'author' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
+     
         $imageUrl = null;
 
         try {
@@ -52,7 +47,7 @@ class PostController extends Controller
                 
                 // Ghi log thông tin file
                 Log::info('Thông tin file tải lên:', [
-                    'tên_file' => $uploadedFile->getClientOriginalName(),
+                    'name_file' => $uploadedFile->getClientOriginalName(),
                     'size' => $uploadedFile->getSize(),
                     'type_file' => $uploadedFile->getMimeType()
                 ]);
@@ -106,16 +101,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
     
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'author' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
+        $validatedData = $request->validated(); // Lấy dữ liệu đã validate từ PostRequest
     
         // Xử lý ảnh nếu có tải lên
         if ($request->hasFile('image')) {
@@ -132,6 +122,7 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
     
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -142,4 +133,17 @@ class PostController extends Controller
         toastr()->success("Xoá thành công!");
         return redirect()->route('posts.index');
     }
+
+
+    public function search(Request $request){
+        $query = $request->input('query');
+       
+        $posts = Post::where('title','like',"%{$query}%")
+                ->orWhere('author','like',"%{$query}%")
+                ->get();
+
+        return view('posts.index',compact('posts'));
+    }
+
+   
 }

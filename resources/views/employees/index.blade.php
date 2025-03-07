@@ -6,43 +6,44 @@
         {{ session('success') }}
     </div>
     @endif
+
     <div class="container mt-6">
-        <h1 class="text-center">Danh sách bài viết</h1>
-    
+        <h1 class="text-center">Danh sách nhân viên</h1>
+   
         <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
-            <form class="d-flex" action="{{route('posts.search')}}" method="GET" >
+            {{-- <form class="d-flex" action="{{route('employees.search')}}" method="GET" >
                 @csrf 
                 <input class="form-control me-2 " style="width:500px" type="text" name="query" placeholder="Nhập từ khóa..." aria-label="Search" >
                 <button class="btn btn-primary" type="submit">Tìm kiếm</button>
-            </form>
-            <a href="{{ route('posts.create') }}" class="btn btn-success">Thêm mới</a>
-        </div>
+            </form> --}}
+            <a href="{{ route('employee.create') }}" class="btn btn-success">Thêm mới</a>
+        </div> 
     
         <table class="table table-hover table-striped text-center align-middle">
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Hình ảnh</th>
-                    <th>Tên</th>
-                    <th>Nội dung</th>
-                    <th>Tác giả</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($posts as $post)
+                @foreach ($employees as $employee)
                 <tr>
-                    <td>{{ $post->id }}</td>
-                    <td><img src="{{$post->image}}" class="img-thumbnail" style="width: 100px;"></td>
-                    <td>{{$post->title}}</td>
-                    <td>{!!$post->content!!}</td>
-                    <td>{{$post->author}}</td>
+                    <td>{{ $employee->id }}</td>
+                    <td>{{$employee->name}}</td>
+                    <td>{{$employee->email}}</td>
+                    <td>{{$employee->phone_number}}</td>
+                    <td>{{$employee->address}}</td>
                     <td class="text-center">
                         <div class="d-inline-flex gap-2">
-                            <a href="{{ route('posts.edit', $post->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                            <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+                            <a href="{{ route('employee.edit', $employee->id)}}" class="btn btn-warning btn-sm">Sửa</a>
+                            <form action="{{route('employee.destroy', $employee->id)}}" method="POST">
                                 @csrf @method('DELETE')
-                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('posts.destroy', $post->id) }}')">Xóa</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('employee.destroy', $employee->id) }}')">Xóa</button>
                             </form>
                         </div>
                     </td>
@@ -66,7 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <form id="deleteForm" method="POST">
+                    <form id="deleteForm" method="post">
                         @csrf @method('DELETE')
                         <button type="submit" class="btn btn-danger">Xóa</button>
                     </form>
@@ -84,5 +85,8 @@
         }
     </script>
     
+
+
+
 
 @endsection

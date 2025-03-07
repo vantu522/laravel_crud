@@ -17,17 +17,17 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label">Tiêu đề</label>
-                <input type="text" name="title" class="form-control" placeholder="Tiêu đề" >
+                <input type="text" name="title" class="form-control" placeholder="Tiêu đề"  >
             </div>
            
             
             <div class="mb-3">
                 <label class="form-label">Nội dung</label>
-                <textarea type="text" name="content" class="form-control" placeholder="Nội dung" ></textarea>
+                <textarea type="text" id="summernote" name="content" class="form-control" placeholder="Nội dung" ></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">Tác giả</label>
-                <input type="text" name="author" class="form-control" placeholder="Tác giả">
+                <input type="text" name="author" class="form-control" placeholder="Tác giả" >
             </div>
             <div class="mb-3">
                 <label class="form-label">Ảnh</label>
@@ -39,6 +39,7 @@
             
         </form>
     </div>
+ 
    
     
     
